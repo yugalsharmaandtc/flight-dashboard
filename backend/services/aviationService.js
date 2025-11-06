@@ -7,7 +7,7 @@ const KEY = process.env.AVIATION_KEY;
 
 export const getFlightData = async (flightNumber) => {
   // flightNumber e.g. AI302
-  const res = await axios.get(`${BASE_URL}/flights`, {
+  const res = await axios.get(`${BASE_URL}/flights?acces_key=${KEY}`, {
     params: { access_key: KEY, flight_iata: flightNumber }
   });
   // aviationstack returns { data: [ ... ] }
@@ -15,21 +15,21 @@ export const getFlightData = async (flightNumber) => {
 };
 
 export const getLiveFlightData = async () => {
-  const res = await axios.get(`${BASE_URL}/flights`, {
+  const res = await axios.get(`${BASE_URL}/flights?acces_key=${KEY}`, {
     params: { access_key: KEY, flight_status: "active", limit: 50 }
   });
   return res.data?.data || [];
 };
 
 export const getAirlineData = async (iataCode) => {
-  const res = await axios.get(`${BASE_URL}/airlines`, {
+  const res = await axios.get(`${BASE_URL}/airlines?acces_key=${KEY}`, {
     params: { access_key: KEY, iata_code: iataCode }
   });
   return res.data?.data?.[0] || {};
 };
 
 export const getAirportData = async (iataCode) => {
-  const res = await axios.get(`${BASE_URL}/airports`, {
+  const res = await axios.get(`${BASE_URL}/airports?acces_key=${KEY}`, {
     params: { access_key: KEY, iata_code: iataCode }
   });
   return res.data?.data?.[0] || {};
